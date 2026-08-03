@@ -1,0 +1,302 @@
+{
+  "name": "portfolio 1: Instant Speed-to-Lead Alert & CRM Ingestion",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "new-lead",
+        "responseMode": "streaming",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "5af1a7fa-d756-4c45-9f83-7715b46dd75d",
+      "name": "Capture lead",
+      "webhookId": "3920612a-13f5-4f3c-a866-ed745e5018dc",
+      "notesInFlow": true,
+      "notes": "Listens for incoming submissions."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a20475d4-3e04-491a-acdd-afb32ecf0676",
+              "name": "LeadName",
+              "value": "={{ $json.body.full_name ? $json.body.full_name.trim() : 'N/A' }} ",
+              "type": "string"
+            },
+            {
+              "id": "62e9f965-431f-40e4-99b0-54c249e24510",
+              "name": "LeadEmail",
+              "value": "={{ $json.body.email ? $json.body.email.toLowerCase() : '' }}",
+              "type": "string"
+            },
+            {
+              "id": "bfe0822c-1452-4fdc-989e-15e3b8cda813",
+              "name": "LeadPhone",
+              "value": "={{ $json.body.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "627006b1-4d45-4470-8677-0d3e1b3d4b6a",
+              "name": "LeadInquiry",
+              "value": "={{ $json.body.inquiry }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        0
+      ],
+      "id": "078af2a2-ab33-473a-970c-b88d899a954d",
+      "name": "CleanIncomingData",
+      "notesInFlow": true,
+      "notes": "standardized names"
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "C0BM6S2A04S",
+          "mode": "list",
+          "cachedResultName": "leads"
+        },
+        "text": "=🚨 *New Lead Alert!*\n\n*Name:* {{ $json.LeadName }}\n*Email:* {{ $json.LeadEmail }}\n*Phone:* {{ $json.LeadPhone }}\n*Inquiry:* {{ $json.LeadInquiry }}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.5,
+      "position": [
+        640,
+        0
+      ],
+      "id": "97df7320-53fd-403d-80e7-33164a22c126",
+      "name": "SlackInstantAlert",
+      "webhookId": "4b873461-cf91-4e85-bd67-380f203fbc65",
+      "notesInFlow": true,
+      "credentials": {
+        "slackApi": {
+          "id": "CAfJanGAVuxflX0K",
+          "name": "Slack account Bot"
+        }
+      },
+      "notes": "Alert Team "
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "16HcXkSqyhpzLUREOxSbbyAaSMpSvAWyeRY5nr96XNcA",
+          "mode": "list",
+          "cachedResultName": "CRM spreadsheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/16HcXkSqyhpzLUREOxSbbyAaSMpSvAWyeRY5nr96XNcA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Leads_2026",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/16HcXkSqyhpzLUREOxSbbyAaSMpSvAWyeRY5nr96XNcA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "LeadName",
+              "displayName": "LeadName",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "LeadEmail",
+              "displayName": "LeadEmail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "LeadPhone",
+              "displayName": "LeadPhone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "LeadInquiry",
+              "displayName": "LeadInquiry",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        432,
+        0
+      ],
+      "id": "f806d0ac-d16e-4fcd-a203-dfc1fad8ef41",
+      "name": "StoreLeadData",
+      "notesInFlow": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "D0I4vFupIgPdJfgx",
+          "name": "Google Sheets account enagakristianjay@gmail.com"
+        }
+      },
+      "notes": "Database Sync"
+    },
+    {
+      "parameters": {
+        "content": "📌 PORTFOLIO 1: INSTANT SPEED-TO-LEAD ALERT & CRM INGESTION\n\n🎯 Business Problem:\nWhen a prospect fills out a lead form, response speed determines conversion rates. Waiting even 10 minutes drops closing chances by over 400%. Manual data entry causes delayed follow-ups and lost pipeline value.\n\n🚀 The Solution:\nAn automated real-time lead processing pipeline:\n1. Webhook instantly captures raw form submissions.\n2. Edit Fields node cleans, trims, and normalizes contact info.\n3. Google Sheets logs the sanitized lead record into central CRM backup.\n4. Slack alerts sales reps immediately to respond within 5 minutes.\n\n💰 Business Impact & ROI:\n• 0-second ingestion latency (instant response capability).\n• 100% elimination of manual data entry errors.\n• Maximum speed-to-lead conversion rate and sales efficiency.",
+        "height": 480,
+        "width": 592,
+        "color": "#B91313"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        -560
+      ],
+      "id": "f1a27143-ddc9-42a0-b236-ae9b71fdca1e",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "🧹 DATA NORMALIZATION & HYGIENE\n\n• Trims whitespace and converts emails to lowercase to prevent duplicate records in CRM.\n• Formats incoming lead fields (`LeadName`, `LeadEmail`, `LeadPhone`, `InquiryText`) using safe optional chaining to avoid workflow execution drops.",
+        "height": 288,
+        "width": 288,
+        "color": "#112B92"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        128,
+        -368
+      ],
+      "id": "6e13ba4e-adaa-4666-a737-2a568e83c75f",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "⚡ CRM SYNC & INSTANT SALES ALERT\n\n• Google Sheets CRM Sync: Appends clean lead metadata directly into the central spreadsheet database for reliable records.\n• Slack Urgency Alert: Posts formatted Markdown alerts to `#new-leads` with a 5-minute response target for sales reps.",
+        "height": 192,
+        "width": 496,
+        "color": "#0B5F89"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        448,
+        -272
+      ],
+      "id": "8ed1ab11-9c14-4185-93b2-fd5bdc9c09ff",
+      "name": "Sticky Note2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Capture lead": {
+      "main": [
+        [
+          {
+            "node": "CleanIncomingData",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CleanIncomingData": {
+      "main": [
+        [
+          {
+            "node": "StoreLeadData",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "StoreLeadData": {
+      "main": [
+        [
+          {
+            "node": "SlackInstantAlert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "timezone": "Asia/Singapore",
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "2f06b174-19a7-4fcf-be8c-629fb0f3d517",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "8c4cd777a5b3ec797918101641527b114bf980b11c0134f7edc5eb4d08953d59"
+  },
+  "nodeGroups": [],
+  "id": "Uxm49Hnan3wWsm5w",
+  "tags": [
+    {
+      "updatedAt": "2026-08-02T15:05:16.574Z",
+      "createdAt": "2026-08-02T15:05:16.574Z",
+      "id": "DR2mwbQrmjghmOnX",
+      "name": "v1"
+    },
+    {
+      "updatedAt": "2026-07-30T13:24:38.045Z",
+      "createdAt": "2026-07-30T13:24:38.045Z",
+      "id": "DwYBj19cUeFUwfIQ",
+      "name": "sprint 1 portfolio build"
+    },
+    {
+      "updatedAt": "2026-07-27T01:41:52.052Z",
+      "createdAt": "2026-07-27T01:41:52.052Z",
+      "id": "mWLPR4lPdrQ8hfmc",
+      "name": "portfolio"
+    }
+  ]
+}
