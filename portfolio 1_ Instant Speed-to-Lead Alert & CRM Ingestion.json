@@ -11,8 +11,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        0,
-        0
+        -80,
+        -32
       ],
       "id": "5af1a7fa-d756-4c45-9f83-7715b46dd75d",
       "name": "Capture lead",
@@ -27,25 +27,25 @@
             {
               "id": "a20475d4-3e04-491a-acdd-afb32ecf0676",
               "name": "LeadName",
-              "value": "={{ $json.body.full_name ? $json.body.full_name.trim() : 'N/A' }} ",
+              "value": "={{ $json.LeadName ? $json.LeadName.trim() : ($json.body?.full_name ? $json.body.full_name.trim() : 'N/A') }}",
               "type": "string"
             },
             {
               "id": "62e9f965-431f-40e4-99b0-54c249e24510",
               "name": "LeadEmail",
-              "value": "={{ $json.body.email ? $json.body.email.toLowerCase() : '' }}",
+              "value": "={{ $json.LeadEmail ? $json.LeadEmail.toLowerCase() : ($json.body?.email ? $json.body.email.toLowerCase() : '') }}",
               "type": "string"
             },
             {
               "id": "bfe0822c-1452-4fdc-989e-15e3b8cda813",
               "name": "LeadPhone",
-              "value": "={{ $json.body.phone }}",
+              "value": "={{ $json.LeadPhone || $json.body?.phone || '' }}",
               "type": "string"
             },
             {
               "id": "627006b1-4d45-4470-8677-0d3e1b3d4b6a",
               "name": "LeadInquiry",
-              "value": "={{ $json.body.inquiry }}",
+              "value": "={{ $json.InquiryText || $json.body?.inquiry || '' }}",
               "type": "string"
             }
           ]
@@ -55,8 +55,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        224,
-        0
+        160,
+        64
       ],
       "id": "078af2a2-ab33-473a-970c-b88d899a954d",
       "name": "CleanIncomingData",
@@ -78,8 +78,8 @@
       "type": "n8n-nodes-base.slack",
       "typeVersion": 2.5,
       "position": [
-        640,
-        0
+        592,
+        64
       ],
       "id": "97df7320-53fd-403d-80e7-33164a22c126",
       "name": "SlackInstantAlert",
@@ -164,8 +164,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        432,
-        0
+        368,
+        64
       ],
       "id": "f806d0ac-d16e-4fcd-a203-dfc1fad8ef41",
       "name": "StoreLeadData",
@@ -225,6 +225,39 @@
       ],
       "id": "8ed1ab11-9c14-4185-93b2-fd5bdc9c09ff",
       "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "formTitle": "Get in Touch - Lead Capture",
+        "formDescription": "Please fill out your contact details below.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "LeadName"
+            },
+            {
+              "fieldLabel": "LeadEmail"
+            },
+            {
+              "fieldLabel": "LeadPhone"
+            },
+            {
+              "fieldLabel": "InquiryText",
+              "fieldType": "textarea"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        -80,
+        160
+      ],
+      "id": "8a5efec4-6eb4-46df-83d3-8c1fc82c0feb",
+      "name": "Get in Touch - Lead Capture",
+      "webhookId": "d2212990-cb8f-4c89-8561-dd5d91c8750a"
     }
   ],
   "pinData": {},
@@ -261,6 +294,17 @@
           }
         ]
       ]
+    },
+    "Get in Touch - Lead Capture": {
+      "main": [
+        [
+          {
+            "node": "CleanIncomingData",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -272,7 +316,7 @@
     "timezone": "Asia/Singapore",
     "callerPolicy": "workflowsFromSameOwner"
   },
-  "versionId": "2f06b174-19a7-4fcf-be8c-629fb0f3d517",
+  "versionId": "13a0fa68-9c50-420e-a7e4-16760e212cda",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "8c4cd777a5b3ec797918101641527b114bf980b11c0134f7edc5eb4d08953d59"
