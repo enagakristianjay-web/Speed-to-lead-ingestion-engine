@@ -1,4 +1,4 @@
-# Instant Speed-to-Lead Alert & CRM Ingestion
+# 📌Instant Speed-to-Lead Alert & CRM Ingestion
 
 ## 📹 Demo Walkthrough
 Watch the 4-minute live walkthrough of the automated pipeline:
