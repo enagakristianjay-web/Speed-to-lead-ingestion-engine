@@ -15,6 +15,14 @@ An automated real-time lead ingestion pipeline built in n8n:
 3. **CRM Sync (Google Sheets):** Appends clean, formatted records into the central CRM database.
 4. **Instant Sales Alert (Slack):** Posts a formatted notification to `#new-leads` with a target 5-minute SLA for sales team follow-up.
 
+## 🧪 Live Execution Proof & SLA Verification
+
+Here is the verified execution log confirming instant lead ingestion, data normalization, database synchronization, and Slack alerting.
+
+### 1. Successful n8n Ingestion Execution Log
+![n8n Speed to Lead Execution History](./speed-to-lead-execution-history.png)
+*Figure 1: Verified n8n execution history demonstrating 0-second ingestion latency across all pipeline nodes.*
+
 ## 💰 Business Impact & ROI
 * **0-Second Lead Ingestion:** Enables immediate response capabilities.
 * **100% Data Quality:** Eliminates duplicate and corrupted CRM entries through strict automated normalization.
