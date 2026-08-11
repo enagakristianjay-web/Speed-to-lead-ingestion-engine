@@ -4,8 +4,7 @@
 Watch the 4-minute live walkthrough of the automated pipeline:
 [Watch Automated CRM Lead Ingestion Demo on Loom](https://www.loom.com/share/707c78cf35df44a4adf3ee1a04d75b57)
 
-![Workflow Architecture](portfolio1.png)
-
+![Workflow Architecture](Workflow Architecture)
 ## 🎯 Business Problem
 When a prospective client fills out a lead form, response speed dictates conversion. Studies show that waiting even 10 minutes drops closing rates by over 400%. Manual data entry and delayed notifications cause lost pipeline revenue.
 
