@@ -1,5 +1,4 @@
 {
-  "name": "portfolio 1: Instant Speed-to-Lead Alert & CRM Ingestion",
   "nodes": [
     {
       "parameters": {
@@ -27,7 +26,7 @@
             {
               "id": "a20475d4-3e04-491a-acdd-afb32ecf0676",
               "name": "LeadName",
-              "value": "={{ $json.LeadName ? $json.LeadName.trim() : ($json.body?.full_name ? $json.body.full_name.trim() : 'N/A') }}",
+              "value": "={{ $json.LeadName ? $json.LeadName.trim() : ($json.body?.full_name ? $json.body.full_name.trim() : 'N/A' )}}",
               "type": "string"
             },
             {
@@ -180,7 +179,7 @@
     },
     {
       "parameters": {
-        "content": "📌 PORTFOLIO 1: INSTANT SPEED-TO-LEAD ALERT & CRM INGESTION\n\n🎯 Business Problem:\nWhen a prospect fills out a lead form, response speed determines conversion rates. Waiting even 10 minutes drops closing chances by over 400%. Manual data entry causes delayed follow-ups and lost pipeline value.\n\n🚀 The Solution:\nAn automated real-time lead processing pipeline:\n1. Webhook instantly captures raw form submissions.\n2. Edit Fields node cleans, trims, and normalizes contact info.\n3. Google Sheets logs the sanitized lead record into central CRM backup.\n4. Slack alerts sales reps immediately to respond within 5 minutes.\n\n💰 Business Impact & ROI:\n• 0-second ingestion latency (instant response capability).\n• 100% elimination of manual data entry errors.\n• Maximum speed-to-lead conversion rate and sales efficiency.",
+        "content": "📌 INSTANT SPEED-TO-LEAD ALERT & CRM INGESTION\n\n🎯 Business Problem:\nWhen a prospect fills out a lead form, response speed determines conversion rates. Waiting even 10 minutes drops closing chances by over 400%. Manual data entry causes delayed follow-ups and lost pipeline value.\n\n🚀 The Solution:\nAn automated real-time lead processing pipeline:\n1. Webhook instantly captures raw form submissions.\n2. Edit Fields node cleans, trims, and normalizes contact info.\n3. Google Sheets logs the sanitized lead record into central CRM backup.\n4. Slack alerts sales reps immediately to respond within 5 minutes.\n\n💰 Business Impact & ROI:\n• 0-second ingestion latency (instant response capability).\n• 100% elimination of manual data entry errors.\n• Maximum speed-to-lead conversion rate and sales efficiency.",
         "height": 480,
         "width": 592,
         "color": "#B91313"
@@ -260,7 +259,6 @@
       "webhookId": "d2212990-cb8f-4c89-8561-dd5d91c8750a"
     }
   ],
-  "pinData": {},
   "connections": {
     "Capture lead": {
       "main": [
@@ -307,40 +305,9 @@
       ]
     }
   },
-  "active": true,
-  "settings": {
-    "executionOrder": "v1",
-    "binaryMode": "separate",
-    "availableInMCP": false,
-    "timeSavedMode": "fixed",
-    "timezone": "Asia/Singapore",
-    "callerPolicy": "workflowsFromSameOwner"
-  },
-  "versionId": "13a0fa68-9c50-420e-a7e4-16760e212cda",
+  "pinData": {},
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "8c4cd777a5b3ec797918101641527b114bf980b11c0134f7edc5eb4d08953d59"
-  },
-  "nodeGroups": [],
-  "id": "Uxm49Hnan3wWsm5w",
-  "tags": [
-    {
-      "updatedAt": "2026-08-02T15:05:16.574Z",
-      "createdAt": "2026-08-02T15:05:16.574Z",
-      "id": "DR2mwbQrmjghmOnX",
-      "name": "v1"
-    },
-    {
-      "updatedAt": "2026-07-30T13:24:38.045Z",
-      "createdAt": "2026-07-30T13:24:38.045Z",
-      "id": "DwYBj19cUeFUwfIQ",
-      "name": "sprint 1 portfolio build"
-    },
-    {
-      "updatedAt": "2026-07-27T01:41:52.052Z",
-      "createdAt": "2026-07-27T01:41:52.052Z",
-      "id": "mWLPR4lPdrQ8hfmc",
-      "name": "portfolio"
-    }
-  ]
+  }
 }
